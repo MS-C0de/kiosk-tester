@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Aldrich&display=swap");
+
+:root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --accent: #38bdf8;
+    --text: #f8fafc;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --warn: #f59e0b;
+    --border: #334155;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+}
+
+/* Login overlay i s kartou bude kompletně nad partikly */
+#loginOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000; /* Vyšší než canvas, takže karta bude plně viditelná a funkční */
+    background-color: var(--bg); /* Může mít plnou barvu pozadí, partikly poběží na pozadí až po přihlášení */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-card {
+    position: relative;
+    z-index: 1002; /* Karta bude nad partikly, aby fungovalo tlačítko a inputy */
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.login-logo-text {
+    font-size: 38px;
+    animation: stroke 5s infinite alternate;
+    stroke-width: 2;
+    stroke: #FFFFFF;
+}
+
+.login-subtitle {
+    color: #94a3b8; 
+    font-size: 0.9rem; 
+    margin-top: 0; 
+    margin-bottom: 15px;
+}
+
+.login-card h2 { color: var(--accent); margin-top: 0; }
+
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background: #090d16;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-container input {
+    margin: 10px 0;
+    padding-right: 40px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    fill: #94a3b8;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password:hover { fill: var(--accent); }
+
+.login-card button {
+    width: 100%;
+    background-color: var(--accent);
+    color: #0f172a;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.login-error { 
+    color: var(--danger); 
+    font-size: 0.85rem; 
+    margin-top: 10px; 
+    display: none; 
+}
+
+/* Hlavní kontejner aplikace */
+#appContainer {
+    position: relative;
+    z-index: 10;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.wrapper {
+    background-color: #0F172A;
+    height: 120px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+svg {
+    font-family: "Aldrich", sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
+svg text {
+    animation: stroke 5s infinite alternate;
+    stroke-width: 2;
+    stroke: #FFFFFF;
+    font-size: 90px;
+}
+
+@keyframes stroke {
+    0% { fill: rgba(56,189,248,0); stroke: rgba(255,255,255,1); stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 2; }
+    70% { fill: rgba(56,189,248,0); stroke: rgba(255,255,255,1); }
+    80% { fill: rgba(56,189,248,0); stroke: rgba(255,255,255,1); stroke-width: 3; }
+    100% { fill: rgba(56,189,248,1); stroke: rgba(255,255,255,0); stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 0; }
+}
+
+p.subtitle { color: #94a3b8; margin-top: 5px; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.card h2 { 
+    font-size: 1.1rem; 
+    margin-top: 0; 
+    border-bottom: 2px solid var(--border); 
+    padding-bottom: 8px; 
+    color: var(--accent); 
+}
+
+.card-desc {
+    font-size: 0.85rem; 
+    color: #94a3b8; 
+    margin-bottom: 0;
+}
+
+button, label.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background-color: var(--accent);
+    color: #0f172a;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+button:hover, label.btn:hover { opacity: 0.9; }
+
+.btn-warn { background-color: var(--warn); color: #000; }
+.btn-danger { background-color: var(--danger); color: #fff; }
+.btn-success { background-color: var(--success); color: #fff; }
+
+input[type="file"] { display: none; }
+
+.log-box {
+    background: #090d16;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    overflow-y: auto;
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    text-align: left;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+#keyLog {
+    height: 180px;
+    max-height: 180px;
+}
+
+.log-item { margin-bottom: 4px; }
+
+.badge {
+    display: inline-block;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.badge-warn { background: var(--warn); color: #000; }
+.badge-danger { background: var(--danger); color: #fff; }
+.badge-info { background: var(--accent); color: #000; }
+.badge-success { background: var(--success); color: #000; }
+
+.full-width { grid-column: 1 / -1; }
+.flex-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.flex-row > * { flex: 1; min-width: 130px; }
+
+.icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.custom-link-box {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.custom-link-box input, .input-group input {
+    flex: 1;
+    padding: 10px;
+    background: #090d16;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.custom-link-box button {
+    width: auto;
+    padding: 10px 16px;
+    margin-top: 0;
+}
+
+.input-group { margin-top: 10px; text-align: left; }
+.input-group label { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 4px; }
+
+.drop-target-box {
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+    background: #090d16;
+    margin-top: 10px;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    cursor: grab;
+}
+
+.drop-target-box.dragover {
+    border-color: var(--accent);
+    background: #1e293b;
+    color: var(--text);
+}
+
+/* Plátno na pozadí přes celou obrazovku */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1; /* Vráceno na pozadí, aby nepřekáželo */
+    pointer-events: none;
+}
